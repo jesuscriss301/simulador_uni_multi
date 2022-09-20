@@ -14,5 +14,21 @@ import ufps.modelo.Proceso;
 public class Simulador {
  
     private Proceso cadena_procesos[];
-           
+
+	public Simulador(Object[] cadena_procesos) {
+		super();
+		
+		this.cadena_procesos = new Proceso[cadena_procesos.length];
+		short i=0;
+		for(Object datos:cadena_procesos) {
+			Proceso p =new Proceso();
+            p.setId_proceso(i);
+            p.setCadena_ejecucion(datos.toString()); 
+            this.cadena_procesos[i]=p;
+            i++;
+        }
+		
+	}
+  
+    
 }

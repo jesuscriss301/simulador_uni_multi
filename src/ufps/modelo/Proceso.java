@@ -16,6 +16,8 @@ public class Proceso {
     private String cadena_ejecucion;
 
     public Proceso() {
+    	this.id_proceso=0;
+    	this.cadena_ejecucion="";
     }
 
     public int getId_proceso() {
