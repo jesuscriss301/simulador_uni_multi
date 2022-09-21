@@ -15,7 +15,7 @@ package ufps.modelo;
 
  *
 
- * @author madarme
+ * @author Jesus Cristancho
 
  */
 

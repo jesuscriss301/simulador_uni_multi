@@ -5,7 +5,7 @@ import ufps.util.varios.*;
 /**
  * Write a description of class Test_archivo_http here.
  * 
- * @author marco adarme
+ * @author Jesus Cristancho
  * @version (a version number or a date)
  */
 public class Test_archivo_http

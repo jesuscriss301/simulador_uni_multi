@@ -9,7 +9,7 @@ import ufps.modelo.Proceso;
 
 /**
  *
- * @author madarme
+ * @author jesus Cristancho
  */
 public class Simulador {
  
@@ -26,9 +26,24 @@ public class Simulador {
             p.setCadena_ejecucion(datos.toString()); 
             this.cadena_procesos[i]=p;
             i++;
-        }
-		
+        }		
 	}
   
-    
+	public char[][] uniproceso(){
+		int j=0;
+		for(Proceso datos:cadena_procesos) {
+			j+=datos.getCadena_ejecucion().length();
+        }	
+		char [][] n = new char [this.cadena_procesos.length][j];
+		int l =0;
+		for(Proceso datos:cadena_procesos) {
+			char[] array=datos.getCadena_ejecucion().toCharArray();
+			
+			for(char k:array) {
+				n[datos.getId_proceso()][l]= k;
+				
+			}
+        }
+		return n ;
+	}
 }
