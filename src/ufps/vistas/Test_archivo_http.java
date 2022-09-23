@@ -18,7 +18,7 @@ public class Test_archivo_http
         Object v[]=file.leerArchivo();
         
         Simulador simulacion=new Simulador(v);
-            
+        System.out.println(simulacion.uniproceso().toString());
     }
     
 

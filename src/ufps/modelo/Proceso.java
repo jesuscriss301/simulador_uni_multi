@@ -61,11 +61,21 @@ public class Proceso {
 
 
     public void setCadena_ejecucion(String cadena_ejecucion) {
-    	if (cadena_ejecucion.charAt(0)=='R'&& cadena_ejecucion.charAt(-1)=='R') {
+    	if (cadena_ejecucion.charAt(0)=='R'&& cadena_ejecucion.charAt(cadena_ejecucion.length()-1)=='R') {
         this.cadena_ejecucion = cadena_ejecucion;
     	}
     }
-
     
+    public int cantidadR(){
+    int aux=0;
+    for(char caracter:cadena_ejecucion.toCharArray()){
+        if(caracter=='R')aux++;
+    }
+    return aux;
+    }
+
+    public int cantidadI(){
+    return cadena_ejecucion.length()-cantidadR();
+    }
     
 }
