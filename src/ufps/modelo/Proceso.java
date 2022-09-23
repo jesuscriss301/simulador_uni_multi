@@ -19,7 +19,7 @@ package ufps.modelo;
 
  */
 
-public class Proceso {
+public class Proceso implements Comparable<Proceso>{
 
     //P0... Pn
 
@@ -66,7 +66,7 @@ public class Proceso {
     	}
     }
     
-    public int cantidadR(){
+    public int getcantidadR(){
     int aux=0;
     for(char caracter:cadena_ejecucion.toCharArray()){
         if(caracter=='R')aux++;
@@ -74,8 +74,16 @@ public class Proceso {
     return aux;
     }
 
-    public int cantidadI(){
-    return cadena_ejecucion.length()-cantidadR();
+    public int getcantidadI(){
+    return cadena_ejecucion.length()-getcantidadR();
+    }
+
+    @Override
+    public int compareTo(Proceso o) {
+        if(this.getcantidadI()>o.getcantidadI())return 1;
+        if(this.getcantidadI()<o.getcantidadI())return -1;
+        return 0;
+        
     }
     
 }
