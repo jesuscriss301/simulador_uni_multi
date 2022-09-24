@@ -7,37 +7,30 @@
  * and open the template in the editor.
 
  */
-
 package ufps.modelo;
 
-
 /**
-
  *
-
+ *
+ *
  * @author Jesus Cristancho
-
+ *
  */
-
-public class Proceso implements Comparable<Proceso>{
+public class Proceso implements Comparable<Proceso> {
 
     //P0... Pn
-
     private int id_proceso;
 
     //RRIIRR...
-
     private String cadena_ejecucion;
-
 
     public Proceso() {
 
-    	this.id_proceso=0;
+        this.id_proceso = 0;
 
-    	this.cadena_ejecucion="";
+        this.cadena_ejecucion = "";
 
     }
-
 
     public int getId_proceso() {
 
@@ -45,13 +38,11 @@ public class Proceso implements Comparable<Proceso>{
 
     }
 
-
     public void setId_proceso(int id_proceso) {
 
         this.id_proceso = id_proceso;
 
     }
-
 
     public String getCadena_ejecucion() {
 
@@ -59,31 +50,41 @@ public class Proceso implements Comparable<Proceso>{
 
     }
 
-
     public void setCadena_ejecucion(String cadena_ejecucion) {
-    	if (cadena_ejecucion.charAt(0)=='R'&& cadena_ejecucion.charAt(cadena_ejecucion.length()-1)=='R') {
+        
         this.cadena_ejecucion = cadena_ejecucion;
-    	}
-    }
-    
-    public int getcantidadR(){
-    int aux=0;
-    for(char caracter:cadena_ejecucion.toCharArray()){
-        if(caracter=='R')aux++;
-    }
-    return aux;
+        
     }
 
-    public int getcantidadI(){
-    return cadena_ejecucion.length()-getcantidadR();
+    public int getcantidadR() {
+        int aux = 0;
+        for (char caracter : cadena_ejecucion.toCharArray()) {
+            if (caracter == 'R') {
+                aux++;
+            }
+        }
+        return aux;
+    }
+
+    public int getcantidadI() {
+        return cadena_ejecucion.length() - getcantidadR();
     }
 
     @Override
     public int compareTo(Proceso o) {
-        if(this.getcantidadI()>o.getcantidadI())return 1;
-        if(this.getcantidadI()<o.getcantidadI())return -1;
+        if (this.getcantidadI() > o.getcantidadI()) {
+            return -1;
+        }
+        if (this.getcantidadI() < o.getcantidadI()) {
+            return 1;
+        }
         return 0;
-        
+
     }
-    
+
+    @Override
+    public String toString() {
+        return "Proceso{" +id_proceso +  cadena_ejecucion + this.getcantidadI()+ '}';
+    }
+
 }
