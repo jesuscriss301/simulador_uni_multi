@@ -62,7 +62,7 @@ public class Simulador {
         }
         int i = 0;
 
-        while (!cola.isEmpty()) {
+        while (cola.size()!=0) {
             int k = 0;
             Proceso dato = new Proceso();
             do {
@@ -71,43 +71,51 @@ public class Simulador {
             char caracter;
             String c = new String();
             do {
-                if (c.equals("")&&dato.getCadena_ejecucion().equals("")) {
+
+                while (n[dato.getId_proceso()][i] == 'I') {
+                    Proceso aux = new Proceso();
+                    aux = (Proceso) cola.poll();
+                    cola.add(dato);
+                    dato = aux;
+                }
+                if (c.length()==1) {
                     
-                    dato = (Proceso) cola.poll();
+                    //n[dato.getId_proceso()][i] = 'R';
+                    caracter = 'E';
+                    i+=2;
+                    break;
+                } else {
+                    c = dato.getCadena_ejecucion().substring(k);
+                    caracter = c.charAt(0);
+                    n[dato.getId_proceso()][i] = caracter;
                 }
-                while(n[dato.getId_proceso()][i]=='I'){
-                Proceso aux=new Proceso();
-                aux = (Proceso) cola.poll();
-                cola.add(dato);
-                dato= aux;
-                }
-                c = dato.getCadena_ejecucion().substring(k);
-                caracter = c.charAt(0);
-                n[dato.getId_proceso()][i] = caracter;
+                //if(cola.isEmpity())break;
                 k++;
                 i++;
 
-        }
-        while (caracter == 'R');
-        i--;
-        int j = i;
-        //cola.add(dato);
-        //caracter=c.charAt(0);
-        while (caracter == 'I') {
+            } while (caracter == 'R');
+            i--;
+            int j = i;
 
-            n[dato.getId_proceso()][j] = caracter;
-            c = dato.getCadena_ejecucion().substring(k);
             //cola.add(dato);
-            k++;
-            j++;
-            caracter = c.charAt(0);
+            //caracter=c.charAt(0);
+            while (caracter == 'I') {
+
+                n[dato.getId_proceso()][j] = caracter;
+                c = dato.getCadena_ejecucion().substring(k);
+                //cola.add(dato);
+                k++;
+                j++;
+                caracter = c.charAt(0);
+            }
+            if (caracter != 'E') {
+                dato.setCadena_ejecucion(c);
+                cola.add(dato);
+            }
+
         }
-        dato.setCadena_ejecucion(c);
-        cola.add(dato);
 
+        return n;
     }
-
-    return n ;
-}
 
 }
