@@ -224,9 +224,13 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Procesar
+        try{
         jTextPane1.setText(simulacion.procesar());
                 
-        jButton3.setEnabled(true);
+        jButton3.setEnabled(true);}
+        catch(CloneNotSupportedException e){
+            jTextPane1.setText(e.getMessage());
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

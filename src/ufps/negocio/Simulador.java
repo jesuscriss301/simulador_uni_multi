@@ -5,6 +5,7 @@
  */
 package ufps.negocio;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 import ufps.modelo.Proceso;
 
@@ -12,7 +13,7 @@ import ufps.modelo.Proceso;
  *
  * @author jesus Cristancho
  */
-public class Simulador {
+public class Simulador implements Cloneable {
 
     private Proceso cadena_procesos[];
     private int procesoUni;
@@ -39,7 +40,10 @@ public class Simulador {
             i++;
         }
         this.procesoUni = secuenciasCadena();
-        //this.multiproceso();
+        Simulador s=new Simulador();
+        s.setCadena_procesos(cadena_procesos);
+        this.procesoMult=s.getProcesoMult();
+        
     }
 
     public char[][] uniproceso() {
@@ -66,13 +70,11 @@ public class Simulador {
         return j;
     }
 
-    public char[][] multiproceso() {
+    private char[][] multiproceso() {
         int cadena = this.cadena_procesos.length;
         char[][] n = new char[cadena][secuenciasCadena()];
         PriorityQueue cola = new PriorityQueue<Proceso>(cadena);
-        for (Proceso dato : cadena_procesos) {
-            cola.add(dato);
-        }
+        cola.addAll(Arrays.asList(cadena_procesos));
         int i = 0;
 
         while (cola.size() != 0) {
@@ -100,9 +102,7 @@ public class Simulador {
                 if (c.length() == 1) {
                     if(cola.size() != 0){
                      this.procesoMult = i+1;
-                     //return n;
                     }
-                    //n[dato.getId_proceso()][i] = 'R';
                     caracter = 'E';
                     i ++;
                     
@@ -112,21 +112,16 @@ public class Simulador {
                     caracter = c.charAt(0);
                     n[dato.getId_proceso()][i] = caracter;
                 }
-                //if(cola.isEmpity())break;
                 k++;
                 i++;
 
             } while (caracter == 'R');
             i--;
             int j = i;
-
-            //cola.add(dato);
-            //caracter=c.charAt(0);
             while (caracter == 'I') {
 
                 n[dato.getId_proceso()][j] = caracter;
                 c = dato.getCadena_ejecucion().substring(k);
-                //cola.add(dato);
                 k++;
                 j++;
                 caracter = c.charAt(0);
@@ -135,7 +130,6 @@ public class Simulador {
                 dato.setCadena_ejecucion(c);
                 cola.add(dato);
             }
-            //int xd=0;
         }
         
         return n;
@@ -146,19 +140,20 @@ public class Simulador {
     }
 
     public int getProcesoMult() {
-        this.multiproceso();
+        multiproceso();
         return procesoMult;
     }
 
-    public String procesar() {
+    public String procesar() throws CloneNotSupportedException {
         String procesar = "";
-        procesar = "El uso de CPU se describe a continuación:\n";
+        procesar = "El uso de CPU se describe a continuación:\n \n";
 
         procesar += "% CPU Uniprograming: (";
         String verdes = "";
         String amarillos = "";
         float verde = 0;
         float amarillo = 0;
+        //Simulador clon = (Simulador) this.clone();
         for (int i = 0; i < cadena_procesos.length; i++) {
             verdes += cadena_procesos[i].getcantidadR() + "";
             amarillos += cadena_procesos[i].getcantidadI() + "";
@@ -203,4 +198,11 @@ public class Simulador {
         this.procesoUni = secuenciasCadena();
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
 }
