@@ -15,6 +15,8 @@ import ufps.modelo.Proceso;
 public class Simulador {
 
     private Proceso cadena_procesos[];
+    private int procesoUni;
+    private int procesoMult;
 
     public Simulador(Object[] cadena_procesos) {
         super();
@@ -28,6 +30,7 @@ public class Simulador {
             this.cadena_procesos[i] = p;
             i++;
         }
+        this.procesoUni= secuenciasCadena();
     }
 
     public char[][] uniproceso() {
@@ -42,6 +45,7 @@ public class Simulador {
                 l++;
             }
         }
+        
         return n;
     }
 
@@ -62,7 +66,7 @@ public class Simulador {
         }
         int i = 0;
 
-        while (cola.size()!=0) {
+        while (cola.size() != 0) {
             int k = 0;
             Proceso dato = new Proceso();
             do {
@@ -78,11 +82,11 @@ public class Simulador {
                     cola.add(dato);
                     dato = aux;
                 }
-                if (c.length()==1) {
-                    
+                if (c.length() == 1) {
+
                     //n[dato.getId_proceso()][i] = 'R';
                     caracter = 'E';
-                    i+=2;
+                    i += 2;
                     break;
                 } else {
                     c = dato.getCadena_ejecucion().substring(k);
@@ -114,8 +118,32 @@ public class Simulador {
             }
 
         }
-
+        this.procesoMult=i;
         return n;
+    }
+
+    public int getProcesoUni() {
+        return procesoUni;
+    }
+
+    public int getProcesoMult() {
+        this.multiproceso();
+        return procesoMult;
+    }
+
+    @Override
+    public String toString() {
+        String rta = "";
+        if (cadena_procesos.length>0) {
+            rta = "Los procesos de cargaron con exito, con la siguente informacion \n \n";
+            for (int i = 0; i < this.cadena_procesos.length; i++) {
+                rta += cadena_procesos[i].toString() + "\n";
+            }
+        }else {
+            rta= "Dijite por favor la URL donde tiene la cadena de procesos";
+        }
+
+        return rta;
     }
 
 }

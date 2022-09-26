@@ -13,6 +13,8 @@ public class Test_archivo_http
    
     public static void main(String args[])
     {
+        
+        //https://madarme.co/persistencia/process.txt
         String url="https://madarme.co/persistencia/process.txt";
         ArchivoLeerURL file=new ArchivoLeerURL(url);
         Object v[]=file.leerArchivo();
@@ -20,6 +22,8 @@ public class Test_archivo_http
         Simulador simulacion=new Simulador(v);
         char [][] s= simulacion.multiproceso();
         System.out.println("tamos melos");
+        System.out.println(simulacion);
+        
     }
     
 

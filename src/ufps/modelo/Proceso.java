@@ -52,8 +52,9 @@ public class Proceso implements Comparable<Proceso> {
 
     public void setCadena_ejecucion(String cadena_ejecucion) {
         
+        if (cadena_ejecucion.charAt(0)=='R'&& cadena_ejecucion.charAt(cadena_ejecucion.length()-1)=='R') {
         this.cadena_ejecucion = cadena_ejecucion;
-        
+    	}
     }
 
     public int getcantidadR() {
@@ -84,7 +85,7 @@ public class Proceso implements Comparable<Proceso> {
 
     @Override
     public String toString() {
-        return "Proceso{" +id_proceso +  cadena_ejecucion + this.getcantidadI()+ '}';
+        return "P" +id_proceso +"=>"+  cadena_ejecucion ;
     }
 
 }
