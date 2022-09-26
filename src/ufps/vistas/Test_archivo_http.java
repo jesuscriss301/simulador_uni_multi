@@ -20,9 +20,10 @@ public class Test_archivo_http
         Object v[]=file.leerArchivo();
         
         Simulador simulacion=new Simulador(v);
-        char [][] s= simulacion.multiproceso();
-        System.out.println("tamos melos");
-        System.out.println(simulacion);
+        //char [][] s= simulacion.multiproceso();
+        //System.out.println("tamos melos");
+        System.out.println(simulacion.procesar());
+        
         
     }
     

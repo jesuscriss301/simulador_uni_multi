@@ -18,6 +18,14 @@ public class Simulador {
     private int procesoUni;
     private int procesoMult;
 
+    public Simulador() {
+        this.cadena_procesos=null;
+        this.procesoMult=0;
+        this.procesoUni=0;
+        
+    }
+
+    
     public Simulador(Object[] cadena_procesos) {
         super();
 
@@ -30,7 +38,8 @@ public class Simulador {
             this.cadena_procesos[i] = p;
             i++;
         }
-        this.procesoUni= secuenciasCadena();
+        this.procesoUni = secuenciasCadena();
+        //this.multiproceso();
     }
 
     public char[][] uniproceso() {
@@ -45,7 +54,7 @@ public class Simulador {
                 l++;
             }
         }
-        
+
         return n;
     }
 
@@ -75,18 +84,28 @@ public class Simulador {
             char caracter;
             String c = new String();
             do {
-
-                while (n[dato.getId_proceso()][i] == 'I') {
+                int x=0;
+                while (n[dato.getId_proceso()][i] == 'I'&&x>=cola.size()) {
+                    
                     Proceso aux = new Proceso();
                     aux = (Proceso) cola.poll();
                     cola.add(dato);
                     dato = aux;
+                    x++;
+                    
                 }
+                while(x>=cola.size()&&n[dato.getId_proceso()][i] == 'I'){
+                    i++;
+                    }
                 if (c.length() == 1) {
-
+                    if(cola.size() != 0){
+                     this.procesoMult = i+1;
+                     //return n;
+                    }
                     //n[dato.getId_proceso()][i] = 'R';
                     caracter = 'E';
-                    i += 2;
+                    i ++;
+                    
                     break;
                 } else {
                     c = dato.getCadena_ejecucion().substring(k);
@@ -116,9 +135,9 @@ public class Simulador {
                 dato.setCadena_ejecucion(c);
                 cola.add(dato);
             }
-
+            //int xd=0;
         }
-        this.procesoMult=i;
+        
         return n;
     }
 
@@ -131,19 +150,57 @@ public class Simulador {
         return procesoMult;
     }
 
+    public String procesar() {
+        String procesar = "";
+        procesar = "El uso de CPU se describe a continuación:\n";
+
+        procesar += "% CPU Uniprograming: (";
+        String verdes = "";
+        String amarillos = "";
+        float verde = 0;
+        float amarillo = 0;
+        for (int i = 0; i < cadena_procesos.length; i++) {
+            verdes += cadena_procesos[i].getcantidadR() + "";
+            amarillos += cadena_procesos[i].getcantidadI() + "";
+            verde += cadena_procesos[i].getcantidadR();
+            amarillo += cadena_procesos[i].getcantidadI();
+            if (i != (cadena_procesos.length - 1)) {
+                verdes += "+";
+                amarillos += "+";
+            }
+        }
+        procesar += verdes + ")  /   (" + verdes + "+" + amarillos + ")    =   " + verde + "/" + (verde + amarillo) + "   =   " + (verde / (verde + amarillo))*100+"% \n";
+        procesar += "% CPU Multiprograming: (";
+        procesar += verdes + ")  /   (" + verdes + "+" + (getProcesoMult()-verde)+")  =   "+verde + "/"+procesoMult+ "  =   "+(verde/procesoMult)*100+"% \n";
+        return procesar;
+    }
+
     @Override
     public String toString() {
         String rta = "";
-        if (cadena_procesos.length>0) {
+        if (cadena_procesos.length > 0) {
             rta = "Los procesos de cargaron con exito, con la siguente informacion \n \n";
             for (int i = 0; i < this.cadena_procesos.length; i++) {
                 rta += cadena_procesos[i].toString() + "\n";
             }
-        }else {
-            rta= "Dijite por favor la URL donde tiene la cadena de procesos";
+        } else {
+            rta = "Dijite por favor la URL donde tiene la cadena de procesos";
         }
 
         return rta;
+    }
+
+    public void setCadena_procesos(Object[] cadena_procesos) {
+        this.cadena_procesos = new Proceso[cadena_procesos.length];
+        short i = 0;
+        for (Object datos : cadena_procesos) {
+            Proceso p = new Proceso();
+            p.setId_proceso(i);
+            p.setCadena_ejecucion(datos.toString());
+            this.cadena_procesos[i] = p;
+            i++;
+        }
+        this.procesoUni = secuenciasCadena();
     }
 
 }
