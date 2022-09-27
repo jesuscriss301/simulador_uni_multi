@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ufps.GUI;
-import ufps.negocio.Simulador;
+package ufps.negocio;
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
+import ufps.negocio.*;
 import ufps.util.varios.*;
 
 
@@ -78,6 +80,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
         jLabel1.setText("Sistemas Operativos - II SEM 2022");
 
+        jTextField1.setText("https://madarme.co/persistencia/process.txt");
         jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +198,16 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Generar PDF
+        // Cargar PDF
+        String url= jTextField1.getText();
+        ArchivoLeerURL file=new ArchivoLeerURL(url);
+        Object v[]=file.leerArchivo();
+        EscribirPDF e= new EscribirPDF(v);
+        try{
+        e.escribir();
+        }catch(Exception ex){
+            jTextPane1.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

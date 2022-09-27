@@ -13,7 +13,7 @@ import ufps.modelo.Proceso;
  *
  * @author jesus Cristancho
  */
-public class Simulador implements Cloneable {
+public class Simulador  {
 
     private Proceso cadena_procesos[];
     private int procesoUni;
@@ -62,15 +62,15 @@ public class Simulador implements Cloneable {
         return n;
     }
 
-    private int secuenciasCadena() {
+    public int secuenciasCadena() {
         int j = 0;
         for (Proceso datos : cadena_procesos) {
             j += datos.getCadena_ejecucion().length();
         }
         return j;
     }
-
-    private char[][] multiproceso() {
+    
+    public char[][] multiproceso() {
         int cadena = this.cadena_procesos.length;
         char[][] n = new char[cadena][secuenciasCadena()];
         PriorityQueue cola = new PriorityQueue<Proceso>(cadena);
@@ -140,7 +140,7 @@ public class Simulador implements Cloneable {
     }
 
     public int getProcesoMult() {
-        multiproceso();
+        if(procesoMult==0)multiproceso();
         return procesoMult;
     }
 
@@ -198,11 +198,4 @@ public class Simulador implements Cloneable {
         this.procesoUni = secuenciasCadena();
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    
 }
