@@ -4,23 +4,18 @@
  * and open the template in the editor.
  */
 package ufps.negocio;
+
 import com.itextpdf.text.DocumentException;
 import java.io.FileNotFoundException;
 import ufps.negocio.*;
 import ufps.util.varios.*;
 
-
 /**
  *
  * @author AMANDA ESCALANTE
  */
-
-
 public class GUI extends javax.swing.JFrame {
 
-   
-    
-   
     public GUI() {
         initComponents();
     }
@@ -199,48 +194,56 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Cargar PDF
-        String url= jTextField1.getText();
-        ArchivoLeerURL file=new ArchivoLeerURL(url);
-        Object v[]=file.leerArchivo();
-        EscribirPDF e= new EscribirPDF(v);
-        try{
-        e.escribir();
-        }catch(Exception ex){
+        String url = jTextField1.getText();
+        ArchivoLeerURL file = new ArchivoLeerURL(url);
+        Object v[] = file.leerArchivo();
+        EscribirPDF e = new EscribirPDF(v);
+        jTextPane1.setText("");
+        try {
+            e.escribir();
+        } catch (Exception ex) {
             jTextPane1.setText(ex.getMessage());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-      String url= jTextField1.getText();
-        ArchivoLeerURL file=new ArchivoLeerURL(url);
-        Object v[]=file.leerArchivo();
-        
-        simulacion.setCadena_procesos(v);
-        
-        jTextPane1.setText(simulacion.toString());
-        jButton2.setEnabled(true);
-        
+        try {
+            String url = jTextField1.getText();
+            ArchivoLeerURL file = new ArchivoLeerURL(url);
+            Object v[] = file.leerArchivo();
+
+            simulacion.setCadena_procesos(v);
+
+            jTextPane1.setText(simulacion.toString());
+            jButton2.setEnabled(true);
+        } catch (NullPointerException e) {
+            jTextPane1.setText("valide su conexion a internet para cargar loa datos");
+        }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Cargar
-        String url= jTextField1.getText();
-        ArchivoLeerURL file=new ArchivoLeerURL(url);
-        Object v[]=file.leerArchivo();
-        
-        simulacion.setCadena_procesos(v);
-        jTextPane1.setText(simulacion.toString());
-        jButton2.setEnabled(true);
-        
+        try {
+            String url = jTextField1.getText();
+            ArchivoLeerURL file = new ArchivoLeerURL(url);
+            Object v[] = file.leerArchivo();
+
+            simulacion.setCadena_procesos(v);
+
+            jTextPane1.setText(simulacion.toString());
+            jButton2.setEnabled(true);
+        } catch (NullPointerException e) {
+            jTextPane1.setText("Valide su conexion a internet para cargar loa datos");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Procesar
-        try{
-        jTextPane1.setText(simulacion.procesar());
-                
-        jButton3.setEnabled(true);}
-        catch(CloneNotSupportedException e){
+        try {
+            jTextPane1.setText(simulacion.procesar());
+
+            jButton3.setEnabled(true);
+        } catch (CloneNotSupportedException e) {
             jTextPane1.setText(e.getMessage());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -276,8 +279,8 @@ public class GUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
-                Simulador simulacion=new Simulador();
-               
+                Simulador simulacion = new Simulador();
+
             }
         });
     }
@@ -299,5 +302,5 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
-    Simulador simulacion=new Simulador();
+    Simulador simulacion = new Simulador();
 }
